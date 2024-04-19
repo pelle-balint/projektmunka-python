@@ -107,12 +107,32 @@ def main():
         os.system("cls")
         x = input("lista 1 vagy 2?: ")
         os.system("cls")
-        
+
     if x == "1":
         olvas("lista1.txt", mag, suly, nev, kor)
         os.system("cls")
     else:
         olvas("lista2.txt", mag, suly, nev, kor)
+
+    os.system("cls")
+    b = input("Akarsz-e saját adatokat írni?(y/n): ")
+    os.system("cls")
+    
+    while b != "y" and b != "n":
+        os.system("cls")
+        b = input("Akarsz-e saját adatokat írni?(y/n): ")
+        os.system("cls")
+    if b == "y":
+        h = input("Melyik fájlba akarsz írni?:(1 vagy 2)")
+        if h == "1":
+            hozzairas("lista1.txt")
+        elif h == "2":
+            hozzairas("lista2.txt")
+        else:
+            raise ValueError
+    else:
+        print("Nincs olyan")
+
     y = input("Random ember BMI értékét kéred(random), vagy meg akarod nézni a név listát és az alapján dönteni(döntés)?: ")
         
     while y != "random" and y != "döntés":
