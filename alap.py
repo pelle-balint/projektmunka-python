@@ -18,7 +18,7 @@ def bmi(mag, suly, nev,kor, random = False):
         i = randint(0, len(mag))
         x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
         print(f"A random ember: {nev[i]}, BMI-je {x}, életkora pedig: {kor[i]}")
-        ell(x, nev[i], mag[i], suly[i], kor[i])
+        ell(x, nev[i])
         intake(x, nev[i], mag[i], suly[i], kor[i])
     else:
         x = round((suly / ((mag / 100) ** 2)), 1)
@@ -48,6 +48,7 @@ def dontes(nev, mag, suly,kor):
         bmi(magas, sulya, neve,kora, random = False)
     else:
         print("Nem található")
+    bubble(mag, suly, nev, kor)
 
 def intake(bmi, neve, mag, suly, kor):
     normal, n, kg, nap = 24.9, [1.2, 1.375, 1.55, 1.725, 1.9], 7700, 55
@@ -65,15 +66,31 @@ def intake(bmi, neve, mag, suly, kor):
     print(f"A normális BMI szint eléréséhez ennyi kalóriát kell elfogyasztani 1 nap {neve}-nak/nek: {abs(round(kal))}, és elérni kívánt súlya kb. {round(new, 1)}kg")
 
 def bubble(mag, suly, nev, kor):
+    x = input("Csökkenő vagy növekvő sorrend?: ")
     n = len(mag)
     for i in range(n):
-        for j in range(n-i-1):
-            if suly[j] > suly[j+1]:
-                mag[j], mag[j+1] = mag[j+1], mag[j]
-                nev[j], nev[j+1] = nev[j+1], nev[j]
-                suly[j], suly[j+1] = suly[j+1], suly[j]
-                kor[j], kor[j+1] = kor[j+1], kor[j]
-            
+        if x == "csökkenő":
+            for j in range(n-i-1):
+                if suly[j] < suly[j+1]:
+                    mag[j], mag[j+1] = mag[j+1], mag[j]
+                    nev[j], nev[j+1] = nev[j+1], nev[j]
+                    suly[j], suly[j+1] = suly[j+1], suly[j]
+                    kor[j], kor[j+1] = kor[j+1], kor[j]
+        else:
+            for j in range(n-i-1):
+                if suly[j] > suly[j+1]:
+                    mag[j], mag[j+1] = mag[j+1], mag[j]
+                    nev[j], nev[j+1] = nev[j+1], nev[j]
+                    suly[j], suly[j+1] = suly[j+1], suly[j]
+                    kor[j], kor[j+1] = kor[j+1], kor[j]
+    ujfajl(suly,mag, nev, kor)
+
+def ujfajl(mag, suly, nev, kor):
+    fw = open("Rendezett.txt", "w", encoding="UTF-8")
+    for i in range(len(mag)):
+       fw.write(mag[i], suly[i], nev[i], kor[i])
+    fw.close()
+
 def main():
     mag, suly, nev, kor = [], [], [], []
     os.system("cls")
@@ -104,6 +121,7 @@ def main():
     else:
         random = True
         bmi(mag, suly, nev, kor, random)
+        bubble(mag, suly, nev, kor)
         
 main()
 
