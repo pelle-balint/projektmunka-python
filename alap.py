@@ -72,7 +72,7 @@ def intake(bmi, neve, mag, suly, kor):
     print(f"A normális BMI szint eléréséhez ennyi kalóriát kell elfogyasztani 1 nap {neve}-nak/nek: {abs(round(kal))}, és elérni kívánt súlya kb. {round(new, 1)}kg")
 
 def bubble(mag, suly, nev, kor):
-    x = input("Csökkenő vagy növekvő sorrend?: ")
+    x = input("Csökkenő vagy növekvő sorrend? (súly alapján): ")
     n = len(mag)
     for i in range(n):
         if x == "csökkenő":
@@ -97,41 +97,70 @@ def ujfajl(mag, suly, nev, kor):
        fw.write(f"{mag[i]}, {suly[i]}, {nev[i]}, {kor[i]}\n")
     fw.close()
 
+def hozzairas(filenev):
+    fa = open(f"{filenev}", "a", encoding="UTF-8")
+    x = int(input("Magasság (magasabb mint 50 cm): "))
+    while x < 50:
+        os.system("cls")
+        x = int(input("Magasság (magasabb mint 50 cm): "))
+        os.system("cls")
+    fa.write(f"\n{x}")
+    x = int(input("Súly (több mint 20 kg): "))
+    while x < 20:
+        os.system("cls")
+        x = int(input("Súly (több mint 20 kg): "))
+        os.system("cls")
+    fa.write(f"; {x}")
+    x = input("Név (hosszabb 2 betűnél): ")
+    while len(x) <= 2:
+        os.system("cls")
+        x = input("Név (hosszabb 2 betűnél): ")
+        os.system("cls")
+    fa.write(f"; {x}")
+    x = int(input("Életkor (legalább 10 év): "))
+    while x < 10:
+        os.system("cls")
+        x = int(input("Életkor (legalább 10 év): "))
+        os.system("cls")
+    fa.write(f"; {x}\n")
+    fa.close()
+
 def main():
     mag, suly, nev, kor = [], [], [], []
     os.system("cls")
-    x = input("lista 1 vagy 2?: ")
+    print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
+    b = input("Akarsz-e saját adatokat írni?(y/n): \n Ha nem, akkor megtudod tekinteni az adatokat. ")
     os.system("cls")
-    
-    while x != "1" and x != "2":
-        os.system("cls")
-        x = input("lista 1 vagy 2?: ")
-        os.system("cls")
 
-    if x == "1":
-        olvas("lista1.txt", mag, suly, nev, kor)
-        os.system("cls")
-    else:
-        olvas("lista2.txt", mag, suly, nev, kor)
-
-    os.system("cls")
-    b = input("Akarsz-e saját adatokat írni?(y/n): ")
-    os.system("cls")
-    
     while b != "y" and b != "n":
         os.system("cls")
-        b = input("Akarsz-e saját adatokat írni?(y/n): ")
+        b = input("Akarsz-e saját adatokat rögzíteni az adattárban?(y/n): \n Ha nem, akkor megtudod tekinteni az adatokat.")
         os.system("cls")
     if b == "y":
-        h = input("Melyik fájlba akarsz írni?:(1 vagy 2)")
+        h = input("Melyik fájlba akarsz adatot rögzíteni?;(1 vagy 2): ")
+        os.system("cls")
         if h == "1":
             hozzairas("lista1.txt")
         elif h == "2":
             hozzairas("lista2.txt")
         else:
             raise ValueError
-    else:
-        print("Nincs olyan")
+    elif b == "n":
+        os.system("cls")
+        x = input("Melyik lista adatait szeretnéd megtekinteni? lista 1 vagy 2?: ")
+        os.system("cls")
+    
+        while x != "1" and x != "2":
+            os.system("cls")
+            x = input("Melyik lista adatait szeretnéd megtekinteni? lista 1 vagy 2?: ")
+            os.system("cls")
+        
+        if x == "1":
+            olvas("lista1.txt", mag, suly, nev, kor)
+            os.system("cls")
+        else:
+            olvas("lista2.txt", mag, suly, nev, kor)
+
 
     y = input("Random ember BMI értékét kéred(random), vagy meg akarod nézni a név listát és az alapján dönteni(döntés)?: ")
         
