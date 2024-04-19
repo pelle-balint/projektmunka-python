@@ -17,14 +17,20 @@ def bmi(mag, suly, nev,kor, random = False):
     if random == True:
         i = randint(0, len(mag))
         x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
-        print(f"A random ember: {nev[i]}, BMI-je {x}, életkora pedig: {kor[i]}")
-        ell(x, nev[i])
-        intake(x, nev[i], mag[i], suly[i], kor[i])
+        if nev[i] != "Gabó":
+            print(f"A random ember: {nev[i]}, BMI-je {x}, életkora pedig: {kor[i]}")
+            ell(x, nev[i])
+            intake(x, nev[i], mag[i], suly[i], kor[i])
+        else:
+            os.system("start microsoft-edge:https://www.ritafoldi.hu/a-fogyas-alapjai-hogyan-mit-mikor-es-mennyit/")
     else:
-        x = round((suly / ((mag / 100) ** 2)), 1)
-        print(f"Az általad válaszott ember: {nev}, BMI-je {x}, életkora pedig: {kor}")
-        ell(x, nev)
-        intake(x, nev, mag, suly, kor)
+        if nev != "Gabó":
+            x = round((suly / ((mag / 100) ** 2)), 1)
+            print(f"Az általad válaszott ember: {nev}, BMI-je {x}, életkora pedig: {kor}")
+            ell(x, nev)
+            intake(x, nev, mag, suly, kor)
+        else:
+            os.system("start microsoft-edge:https://www.ritafoldi.hu/a-fogyas-alapjai-hogyan-mit-mikor-es-mennyit/")
     
 def ell(rate, nev):
     if rate < 18.5:
@@ -38,7 +44,7 @@ def ell(rate, nev):
         
 def dontes(nev, mag, suly,kor):
     n = len(nev)
-    ker = input("Kinek a BMI-jét szeretnéd tudni?: ")
+    ker = input("Kinek a BMI-jét szeretnéd tudni?: ").capitalize()
     os.system("cls")
     i = 0
     while i < n and nev[i] != ker:
@@ -88,7 +94,7 @@ def bubble(mag, suly, nev, kor):
 def ujfajl(mag, suly, nev, kor):
     fw = open("Rendezett.txt", "w", encoding="UTF-8")
     for i in range(len(mag)):
-       fw.write(mag[i], suly[i], nev[i], kor[i])
+       fw.write(f"{mag[i]}, {suly[i]}, {nev[i]}, {kor[i]}\n")
     fw.close()
 
 def main():
@@ -125,7 +131,7 @@ def main():
         
 main()
 
-#test2
+#Katy Perry - Firework
 #You just gotta ignite the light
 #And let it shine
 #Just own the night
@@ -139,3 +145,19 @@ main()
 #Come on, let your colors burst
 #Make 'em go, "Oh, oh, oh"
 #You're gonna leave 'em all in awe, awe, awe
+
+#Katy Perry - Hot n Cold
+# Cause you're hot then you're cold
+# You're yes then you're no
+# You're in then you're out
+# You're up then you're down
+# You're wrong when it's right
+# It's black and it's white
+# We fight, we break up
+# We kiss, we make up
+# (You) You don't really want to stay, no
+# (You) But you don't really want to go
+# You're hot then you're cold
+# You're yes then you're no
+# You're in then you're out
+# You're up then you're down
