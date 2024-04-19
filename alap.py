@@ -129,15 +129,15 @@ def main():
     mag, suly, nev, kor = [], [], [], []
     os.system("cls")
     print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
-    b = input("Akarsz-e saját adatokat írni?(y/n): \n Ha nem, akkor megtudod tekinteni az adatokat. ")
+    b = input("Akarsz-e saját adatokat írni?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
     os.system("cls")
 
     while b != "y" and b != "n":
         os.system("cls")
-        b = input("Akarsz-e saját adatokat rögzíteni az adattárban?(y/n): \n Ha nem, akkor megtudod tekinteni az adatokat.")
+        b = input("Akarsz-e saját adatokat rögzíteni az adattárban?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
         os.system("cls")
     if b == "y":
-        h = input("Melyik fájlba akarsz adatot rögzíteni?;(1 vagy 2): ")
+        h = input("Melyik fájlba akarsz adatot rögzíteni? (1 vagy 2): ")
         os.system("cls")
         if h == "1":
             hozzairas("lista1.txt")
