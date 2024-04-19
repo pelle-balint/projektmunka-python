@@ -51,7 +51,10 @@ def dontes(nev, mag, suly,kor):
 
 def intake(bmi, neve, mag, suly, kor):
     normal, n, kg, nap = 24.9, [1.2, 1.375, 1.55, 1.725, 1.9], 7700, 55
-    akt = choice(n)
+    szam = 0
+    for i in range(len(n)):
+        szam += n[i]
+    akt = szam / len(n)
     bmr = 66.47 + (13.75 * suly) + (5.003 * mag) - (6.755 * kor)
     okal = bmr * akt
     new = (normal / bmi) * suly
@@ -60,6 +63,16 @@ def intake(bmi, neve, mag, suly, kor):
     kal = okal - dkal
     #Az aktivitási szint az n, ezáltal mindig változni fog, hogy mennyi kalória kell, erőltetett diéta kalória számai találhatóak itt
     print(f"A normális BMI szint eléréséhez ennyi kalóriát kell elfogyasztani 1 nap {neve}-nak/nek: {abs(round(kal))}, és elérni kívánt súlya kb. {round(new, 1)}kg")
+
+def bubble(mag, suly, nev, kor):
+    n = len(mag)
+    for i in range(n):
+        for j in range(n-i-1):
+            if suly[j] > suly[j+1]:
+                mag[j], mag[j+1] = mag[j+1], mag[j]
+                nev[j], nev[j+1] = nev[j+1], nev[j]
+                suly[j], suly[j+1] = suly[j+1], suly[j]
+                kor[j], kor[j+1] = kor[j+1], kor[j]
             
 def main():
     mag, suly, nev, kor = [], [], [], []
@@ -94,7 +107,7 @@ def main():
         
 main()
 
-
+#test2
 #You just gotta ignite the light
 #And let it shine
 #Just own the night
