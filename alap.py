@@ -69,7 +69,7 @@ def intake(bmi, neve, mag, suly, kor):
     dkal = total / nap
     kal = okal - dkal
     #Az aktivitási szint az n, ezáltal mindig változni fog, hogy mennyi kalória kell, erőltetett diéta kalória számai találhatóak itt
-    print(f"A normális BMI szint eléréséhez ennyi kalóriát kell elfogyasztani 1 nap {neve}-nak/nek: {abs(round(kal))}, elérni kívánt súlya kb. {round(new, 1)}kg, és ennyi napba fog telik: {nap}")
+    print(f"A normális BMI szint eléréséhez ennyi kalóriát kell elfogyasztani 1 nap {neve}-nak/nek: {abs(round(kal))}, és elérni kívánt súlya kb. {round(new, 1)}kg")
 
 def bubble(mag, suly, nev, kor):
     x = input("Csökkenő vagy növekvő sorrend? (súly alapján): ")
@@ -129,15 +129,15 @@ def main():
     mag, suly, nev, kor = [], [], [], []
     os.system("cls")
     print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
-    b = input("Akarsz-e saját adatokat rögzíteni az adattárban?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
+    b = input("Akarsz-e saját adatokat írni?(y/n): \n Ha nem, akkor megtudod tekinteni az adatokat. ")
     os.system("cls")
 
     while b != "y" and b != "n":
         os.system("cls")
-        b = input("Akarsz-e saját adatokat rögzíteni az adattárban?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
+        b = input("Akarsz-e saját adatokat rögzíteni az adattárban?(y/n): \n Ha nem, akkor megtudod tekinteni az adatokat.")
         os.system("cls")
     if b == "y":
-        h = input("Melyik fájlba akarsz adatot rögzíteni?(1 vagy 2): ")
+        h = input("Melyik fájlba akarsz adatot rögzíteni?;(1 vagy 2): ")
         os.system("cls")
         if h == "1":
             hozzairas("lista1.txt")
@@ -160,6 +160,7 @@ def main():
             os.system("cls")
         else:
             olvas("lista2.txt", mag, suly, nev, kor)
+
 
     y = input("Random ember BMI értékét kéred(random), vagy meg akarod nézni a név listát és az alapján dönteni(döntés)?: ")
         
