@@ -152,6 +152,23 @@ def main():
     mag, suly, nev, kor = [], [], [], []
     os.system("cls")
     print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
+    ok = input("Szeretnéd a programot futtatni, vagy a bmi statisztikát szeretnéd?(y/n): ")
+    while ok != "y" and ok != "n":
+        os.system("cls")
+        ok = input("Szeretnéd megtekinteni a bmi statisztikát?(y/n): ")
+        os.system("cls")
+    m = os.path.isfile()
+    if m == True:
+        if ok == "y":
+            ...
+        else:
+            ...
+    if m == False:
+        if ok == "y":
+            print("Nincs még létező file, ezáltal kérem várjon, itt van pár lehetőség zenéhez:")
+
+    os.system("cls")
+    print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
     b = input("Akarsz-e saját adatokat írni?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
     os.system("cls")
 
@@ -183,8 +200,7 @@ def main():
             os.system("cls")
         else:
             olvas("lista2.txt", mag, suly, nev, kor)
-    jah = []
-    jah = nev
+
     y = input("Random ember BMI értékét kéred(random), vagy meg akarod nézni a név listát és az alapján dönteni(döntés)?: ")
         
     while y != "random" and y != "döntés":
