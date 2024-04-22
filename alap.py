@@ -23,6 +23,8 @@ def bmi(mag, suly, nev,kor, random = False):
             intake(x, nev[i], mag[i], suly[i], kor[i])
         else:
             os.system("start microsoft-edge:https://www.ritafoldi.hu/a-fogyas-alapjai-hogyan-mit-mikor-es-mennyit/")
+        if nev[i] == "Jamal":
+            os.system("start microsoft-edge:https://michael-jackson1958.webnode.hu/eletrajz/")
     else:
         if nev != "Gabó":
             x = round((suly / ((mag / 100) ** 2)), 1)
@@ -31,6 +33,8 @@ def bmi(mag, suly, nev,kor, random = False):
             intake(x, nev, mag, suly, kor)
         else:
             os.system("start microsoft-edge:https://www.ritafoldi.hu/a-fogyas-alapjai-hogyan-mit-mikor-es-mennyit/")
+        if nev == "Jamal":
+            os.system("start microsoft-edge:https://michael-jackson1958.webnode.hu/eletrajz/")
     
 def ell(rate, nev):
     if rate < 18.5:
@@ -90,13 +94,17 @@ def bubble(mag, suly, nev, kor):
                     suly[j], suly[j+1] = suly[j+1], suly[j]
                     kor[j], kor[j+1] = kor[j+1], kor[j]
     ujfajl(suly,mag, nev, kor)
-
 def ujfajl(mag, suly, nev, kor):
     fw = open("Rendezett.txt", "w", encoding="UTF-8")
     for i in range(len(mag)):
        fw.write(f"{mag[i]}, {suly[i]}, {nev[i]}, {kor[i]}\n")
     fw.close()
-
+def fullbmi(mag, suly, nev,kor):
+    v = []
+    for i in range(len(mag)):
+        x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
+        v.append(x)
+    print(v)
 def hozzairas(filenev):
     fa = open(f"{filenev}", "a", encoding="UTF-8")
     x = int(input("Magasság (magasabb mint 50 cm): "))
@@ -177,7 +185,7 @@ def main():
         random = True
         bmi(mag, suly, nev, kor, random)
         bubble(mag, suly, nev, kor)
-        
+    fullbmi(mag, suly, nev,kor)    
 main()
 
 #Katy Perry - Firework
