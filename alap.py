@@ -101,20 +101,24 @@ def legelhizotabb(hizas, nev):
     n = len(hizas)
     max = hizas[0]
     for i in range(1, n):
-        if hizas[i] < max[i]:
-            max = hizas[i]
-    print("Legelhízotabb ember az osztályban: ", nev[max])
+        if hizas[i] < max:
+            max = i
+    print("Legelhízotabb ember az osztályban:", nev[i])
             
 def fullbmi(mag, suly, nev):
-    v = []
+    elhizottnev = []
+    elhizottsuly = []
     szamos = 0
+    szamos2 = 0
     for i in range(len(mag)):
+        szamos2 += 1
         x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
-        if i > 29.9:
-            v.append(i, nev)
+        if x > 29.9:
             szamos += 1
+            elhizottnev.append(nev[szamos2])
+            elhizottsuly.append(int(x))
     print("Ennyi elhízott ember van az osztályba:", szamos)
-    legelhizotabb(v, nev)
+    legelhizotabb(elhizottsuly, elhizottnev)
 
 def hozzairas(filenev):
     fa = open(f"{filenev}", "a", encoding="UTF-8")
@@ -179,8 +183,8 @@ def main():
             os.system("cls")
         else:
             olvas("lista2.txt", mag, suly, nev, kor)
-
-
+    jah = []
+    jah = nev
     y = input("Random ember BMI értékét kéred(random), vagy meg akarod nézni a név listát és az alapján dönteni(döntés)?: ")
         
     while y != "random" and y != "döntés":
