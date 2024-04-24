@@ -152,20 +152,42 @@ def main():
     mag, suly, nev, kor = [], [], [], []
     os.system("cls")
     print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
-    ok = input("Szeretnéd a programot futtatni, vagy a bmi statisztikát szeretnéd?(y/n): ")
+    ok = input("Szeretnéd megtekinteni a bmi statisztikát, vagy programot akarod futtatni?(y/n): ")
     while ok != "y" and ok != "n":
         os.system("cls")
-        ok = input("Szeretnéd megtekinteni a bmi statisztikát?(y/n): ")
+        ok = input("Szeretnéd megtekinteni a bmi statisztikát, vagy programot akarod futtatni?(y/n): ")
         os.system("cls")
-    m = os.path.isfile()
+    m = False
+    try:
+        f = open("statisztika.txt", "r", encoding="UTF-8")
+        sor = f.readline().strip()
+        while sor != "":
+            k = sor.split()
+            if k[0] != "":
+                m = True
+        f.close()
+    except:
+        m == False
     if m == True:
         if ok == "y":
-            ...
+            print("Jó ez")
         else:
-            ...
-    if m == False:
+            os.system("cls")
+            print("Rendben, itt a program:")
+    elif m == False:
         if ok == "y":
-            print("Nincs még létező file, ezáltal kérem várjon, itt van pár lehetőség zenéhez:")
+            l = input("Nincs még létező file, ezáltal kérem várjon, itt van pár lehetőség várakozási muzsikához:\n1. Justice\n2. Vibe\n")
+            while l != "1" and l != "2":
+                os.system("cls")
+                l = input("Csak 1est és 2est fogadunk el, kérem írja újra: ")
+                os.system("cls")
+            if l == "1":
+                os.system("start microsoft-edge:https://www.youtube.com/watch?v=YFcM7BntI0M")
+            else:
+                os.system("start microsoft-edge:https://www.youtube.com/watch?v=vlLgvQErn6o")
+        else:
+            os.system("cls")
+            print("Rendben, itt a program:")
 
     os.system("cls")
     print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
