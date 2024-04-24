@@ -1,6 +1,97 @@
 from random import *
 import os
 
+def beolvasas(mag, suly, nev, kor):
+    os.system("cls")
+    b = input("Akarsz-e saját adatokat rögzíteni?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
+    os.system("cls")
+
+    while b != "y" and b != "n":
+        os.system("cls")
+        b = input("Nem nehéz ez. Ott a mondat végen mit kell beirni.\nAkarsz-e saját adatokat rögzíteni az adattárban?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
+        os.system("cls")
+
+    if b == "y":
+        valasz = beiras()
+        if valasz == "A":
+            hozzairas("lista1.txt")
+        else:
+            hozzairas("lista2.txt")
+
+    elif b == "n":
+        os.system("cls")
+        x = input("Melyik osztály adatait szeretnéd megtekinteni? A osztály vagy B osztály?: ")
+        os.system("cls")
+    
+        while x != "A" and x != "B":
+            os.system("cls")
+            x = input("Megint nem sikerült értelmezni a szöveget.\nTehát probáljuk meg még egyszer;\nMelyik osztály adatait szeretnéd megtekinteni? A osztály vagy B osztály?: ")
+            os.system("cls")
+        
+        if x == "A":
+            olvas("lista1.txt", mag, suly, nev, kor)
+        else:
+            olvas("lista2.txt", mag, suly, nev, kor)
+
+def beiras():
+    h = input("Melyik fájlba akarsz adatot rögzíteni? (A vagy B): ")
+    os.system("cls")
+    while h != "A" and h != "B":
+            os.system("cls")
+            h = input("Úgy látszik nem volt elég egyértelmű. Probáljuk meg újra.\nMelyik fájlba akarsz adatot rögzíteni? (A vagy B): ")
+            os.system("cls")
+    return h
+
+def mod(mag, suly, nev, kor):
+    döntés = input("Random ember BMI értékét kéred (random), vagy meg akarod nézni a név listát és az alapján dönteni (döntés)?: ")
+        
+    while döntés != "random" and döntés != "döntés":
+        os.system("cls")
+        döntés = input("Probáljuk meg még egyszer. Tehát random VAGY döntés? Nincs más opció: ")
+        os.system("cls")
+            
+    if döntés == "döntés":
+        os.system("cls")
+        print(*nev, sep="; ")
+        print()
+        d = dontes(nev)
+        while d == -1:
+            print("Nem található ilyen név. Probáld újra.")
+            print()
+            print(*nev, sep="; ")
+            print()
+            d = dontes(nev)
+        bmi(mag[d], suly[d], nev[d], kor[d])
+
+    else:
+        bmi(mag, suly, nev, kor, random == True)
+        bubble(mag, suly, nev, kor)
+
+def rendez(mag, suly, nev, kor):
+    os.system("cls")
+    buborek = input("Szeretnéd súly szerint növekvő vagy csökkenő sorrendbe rendezni az osztályt? (y/n): ")
+    while buborek != "y" and buborek != "n":
+        os.system("cls")
+        buborek = input("Na akkor még egyszer.\nSzeretnéd súly szerint növekvő vagy csökkenő sorrendbe rendezni az osztályt? (y/n): ")
+        os.system("cls")
+    if buborek == "y":
+        bubble(mag, suly, nev, kor)
+        ujfajl(suly, mag, nev, kor)
+    else:
+        os.system("cls")
+        print("Hát akkor ugorjunk a végére.")
+
+def hizott(mag, suly, nev):
+    dontes2 = input("Szeretnéd megtekinteni a legelhízottabb személyt az osztályban? (y/n): ")
+    while dontes2 != "y" and dontes2 != "n":
+        os.system("cls")
+        dontes2 = input("Na ez nem sikerült.\nSzeretnéd megtekinteni a legelhízottabb személyt az osztályban? (y/n): ")
+        os.system("cls")
+    if dontes2 == "y":
+        fullbmi(mag, suly, nev)
+        print()
+        print("Úgy látszik vége a kódnak, nem bántunk már meg több embert ma.\nKészítette: Norbert professor.")
+
 def olvas(filenev, mag, suly, nev, kor):
     f = open(f"{filenev}", "r", encoding="UTF-8")
     sor = f.readline().strip()
@@ -25,7 +116,7 @@ def bmi(mag, suly, nev,kor, random = False):
             os.system("start microsoft-edge:https://www.ritafoldi.hu/a-fogyas-alapjai-hogyan-mit-mikor-es-mennyit/")
     else:
         if nev != "Gabó":
-            x = round((suly / ((mag / 100) ** 2)), 1)
+            x = round((suly / ((mag // 100) ** 2)), 1)
             print(f"Az általad válaszott ember: {nev}, BMI-je {x}, életkora pedig: {kor}")
             ell(x, nev)
             intake(x, nev, mag, suly, kor)
@@ -76,7 +167,9 @@ def csere(mag, nev, suly, kor, j):
     kor[j], kor[j+1] = kor[j+1], kor[j]
 
 def bubble(mag, suly, nev, kor):
+    os.system("cls")
     x = input("Csökkenő vagy növekvő sorrend? (súly alapján): ")
+    os.system("cls")
     n = len(mag)
     for i in range(n):
         if x == "csökkenő":
@@ -95,7 +188,7 @@ def ujfajl(mag, suly, nev, kor):
        fw.write(f"{mag[i]}, {suly[i]}, {nev[i]}, {kor[i]}\n")
     fw.close()
 
-def legelhizotabb(hizas, nev):
+def legelhizottabb(hizas, nev):
     n = len(hizas)
     max = hizas[0]
     for i in range(1, n):
@@ -106,17 +199,15 @@ def legelhizotabb(hizas, nev):
 def fullbmi(mag, suly, nev):
     elhizottnev = []
     elhizottsuly = []
-    szamos = 0
-    szamos2 = 0
+    mennyiseg = 0
     for i in range(len(mag)):
-        szamos2 += 1
         x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
         if x > 29.9:
-            szamos += 1
-            elhizottnev.append(nev[szamos2])
+            mennyiseg += 1
+            elhizottnev.append(nev[i])
             elhizottsuly.append(int(x))
-    print("Ennyi elhízott ember van az osztályba:", szamos)
-    legelhizotabb(elhizottsuly, elhizottnev)
+    print("Ennyi elhízott ember van az osztályba:", mennyiseg)
+    legelhizottabb(elhizottsuly, elhizottnev)
 
 def hozzairas(filenev):
     fa = open(f"{filenev}", "a", encoding="UTF-8")
@@ -147,17 +238,18 @@ def hozzairas(filenev):
         x = int(input("Életkor (legalább 10 év): "))
         os.system("cls")
     fa.write(f"; {x}\n")
+    os.system("cls")
     fa.close()
 
 def main():
     mag, suly, nev, kor = [], [], [], []
     os.system("cls")
     print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
-    ok = input("Szeretnéd megtekinteni a bmi statisztikát, vagy programot akarod futtatni?(y/n): ")
+    ok = input("Szeretnéd megtekinteni a bmi statisztikát(y), vagy programot akarod futtatni(n)?: ")
 
     while ok != "y" and ok != "n":
         os.system("cls")
-        ok = input("Szeretnéd megtekinteni a bmi statisztikát, vagy programot akarod futtatni?(y/n): ")
+        ok = input("Jól kezdünk. Akkor probáljuk meg még egyszer.\nSzeretnéd megtekinteni a bmi statisztikát(y), vagy programot akarod futtatni(n)?: ")
         os.system("cls")
     m = False
 
@@ -194,88 +286,14 @@ def main():
             os.system("cls")
             print("Rendben, itt a program:")
 
-    os.system("cls")
-    print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
-    b = input("Akarsz-e saját adatokat rögzíteni?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
-    os.system("cls")
+    beolvasas(mag, suly, nev, kor)
 
-    while b != "y" and b != "n":
-        os.system("cls")
-        b = input("Nem nehéz ez. Ott a mondat végen mit kell beirni.\nAkarsz-e saját adatokat rögzíteni az adattárban?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
-        os.system("cls")
-
-    if b == "y":
-        h = input("Melyik fájlba akarsz adatot rögzíteni? (A vagy B): ")
-        os.system("cls")
-        while h != "A" and h != "B":
-            os.system("cls")
-            h = input("Úgy látszik nem volt elég egyértelmű. Probáljuk meg újra.\nMelyik fájlba akarsz adatot rögzíteni? (A vagy B): ")
-            os.system("cls")
-        if b == "A":
-            hozzairas("lista1.txt")
-        else:
-            hozzairas("lista2.txt")
-
-    elif b == "n":
-        os.system("cls")
-        x = input("Melyik osztály adatait szeretnéd megtekinteni? A osztály vagy B osztály?: ")
-        os.system("cls")
+    mod(mag, suly, nev, kor)
     
-        while x != "A" and x != "B":
-            os.system("cls")
-            x = input("Megint nem sikerült értelmezni a szöveget.\nTehát probáljuk meg még egyszer;\nMelyik osztály adatait szeretnéd megtekinteni? A osztály vagy B osztály?: ")
-            os.system("cls")
-        
-        if x == "A":
-            olvas("lista1.txt", mag, suly, nev, kor)
-        else:
-            olvas("lista2.txt", mag, suly, nev, kor)
+    rendez(mag, suly, nev, kor)
 
-    döntés = input("Random ember BMI értékét kéred (random), vagy meg akarod nézni a név listát és az alapján dönteni (döntés)?: ")
-        
-    while döntés != "random" and döntés != "döntés":
-        os.system("cls")
-        döntés = input("Probáljuk meg még egyszer. Tehát random VAGY döntés? Nincs más opció: ")
-        os.system("cls")
-            
-    if döntés == "döntés":
-        os.system("cls")
-        print(*nev, sep="; ")
-        print()
-        d = dontes(nev)
-        while d == -1:
-            print("Nem található ilyen név. Probáld újra.")
-            print()
-            print(*nev, sep="; ")
-            print()
-            d = dontes(nev)
-        bmi(mag[d], suly[d], nev[d], kor[d])
-    
-    else:
-        bmi(mag, suly, nev, kor, random == True)
-        bubble(mag, suly, nev, kor)
-    
-    buborek = input("Szeretnéd súly szerint növekvő vagy csökkenő sorrendbe rendezni az osztályt? (y/n): ")
-    while buborek != "y" and buborek != "n":
-        os.system("cls")
-        buborek = input("Na akkor még egyszer.\nSzeretnéd súly szerint növekvő vagy csökkenő sorrendbe rendezni az osztályt? (y/n): ")
-        os.system("cls")
-    if buborek == "y":
-        bubble(mag, suly, nev, kor)
-        ujfajl(suly, mag, nev, kor)
-    else:
-        print("Hát akkor ugorjunk a végére.")
-        os.system("cls")
-
-    dontes2 = input("Szeretnéd megtekinteni a legelhízottabb személyt az osztályban? (y/n): ")
-    while dontes2 != "y" and dontes2 != "n":
-        os.system("cls")
-        dontes2 = input("Na ez nem sikerült.\nSzeretnéd megtekinteni a legelhízottabb személyt az osztályban? (y/n): ")
-        os.system("cls")
-    if dontes2 == "y":
-        fullbmi(mag, suly, nev)
-        print()
-        print("Úgy látszik vége a kódnak, nem bántunk már meg több embert ma.")   
+    hizott(mag, suly, nev)
+   
 main()
 
 #Katy Perry - Firework
