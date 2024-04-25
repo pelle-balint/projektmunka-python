@@ -14,9 +14,9 @@ def beolvasas(mag, suly, nev, kor):
     if b == "y":
         valasz = beiras()
         if valasz == "A":
-            hozzairas("lista1.txt")
+            hozzairas("A_osztaly.txt")
         else:
-            hozzairas("lista2.txt")
+            hozzairas("B_osztaly.txt")
 
     elif b == "n":
         os.system("cls")
@@ -29,16 +29,16 @@ def beolvasas(mag, suly, nev, kor):
             os.system("cls")
         
         if x == "A":
-            olvas("lista1.txt", mag, suly, nev, kor)
+            olvas("A_osztaly.txt", mag, suly, nev, kor)
         else:
-            olvas("lista2.txt", mag, suly, nev, kor)
+            olvas("B_osztaly.txt", mag, suly, nev, kor)
 
 def beiras():
-    h = input("Melyik fájlba akarsz adatot rögzíteni? (A vagy B): ")
+    h = input("Melyik fájlba akarsz adatot rögzíteni? (A vagy B): ").capitalize()
     os.system("cls")
     while h != "A" and h != "B":
             os.system("cls")
-            h = input("Úgy látszik nem volt elég egyértelmű. Probáljuk meg újra.\nMelyik fájlba akarsz adatot rögzíteni? (A vagy B): ")
+            h = input("Úgy látszik nem volt elég egyértelmű. Probáljuk meg újra.\nMelyik fájlba akarsz adatot rögzíteni? (A vagy B): ").capitalize()
             os.system("cls")
     return h
 
@@ -76,6 +76,7 @@ def rendez(mag, suly, nev, kor):
     if buborek == "y":
         bubble(mag, suly, nev, kor)
         ujfajl(suly, mag, nev, kor)
+        
     else:
         os.system("cls")
         print("Hát akkor ugorjunk a végére.")
@@ -85,7 +86,7 @@ def hizott(mag, suly, nev):
     os.system("cls")
     while dontes2 != "y" and dontes2 != "n":
         os.system("cls")
-        dontes2 = input("Na ez nem sikerült.\nSzeretnéd megtekinteni a legelhízottabb személyt az osztályban (bmi alapján)? (y/n): ")
+        dontes2 = input("Na ez nem sikerült.\nSzeretnéd megtekinteni a legelhízottabb személyt az osztályban (bmi alapján)? (y/n): ").capitalize()
         os.system("cls")
     if dontes2 == "y":
         fullbmi(mag, suly, nev)
@@ -103,8 +104,13 @@ def olvas(filenev, mag, suly, nev, kor):
         kor.append(int(y[3]))
         sor = f.readline().strip()
     f.close()
+    bmiossz = []
+    for i in range(len(mag)):
+        x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
+        bmiossz.append(x)
+    statisztika(nev, kor, bmiossz)
 
-def bmi(mag, suly, nev,kor, random = False):
+def bmi(mag, suly, nev, kor, random = False):
     if random == True:
         i = randint(0, len(mag))
         if nev[i] != "Gabó":
@@ -139,15 +145,24 @@ def dontes(nev):
     n = len(nev)
     ker = input("Kinek a BMI-jét szeretnéd tudni?: ").capitalize()
     os.system("cls")
-    i = 0
-    while i < n and nev[i] != ker:
-        i += 1
-    if(i < n):
-        print(nev[i])
-        return i
+    if ker == "Tobias tanar ur":
+        print(" __        __    __     _____    ________    ______         _      _")
+        print("|  |      |  |  |  |   | ___ |  |__    __|  |  ____|       | |    | |")
+        print("|  |      |  |  |  |   | | | |     |  |     | |            | |    | |")
+        print("|  |      |   __   |   |_|_|_|     |  |     | |____        | |    | |")
+        print("|  |      |   __   |  |_______|    |  |     |  ____|       | |    | |")
+        print("|  |      |  |  |  |  | |   | |    |  |     | |____        | |    | |")
+        print("|  |      |  |  |  |  | |   | |    |  |     |      |       | ¯¯¯¯¯¯ |")
+        print(" ¯¯        ¯¯    ¯¯   ¯¯     ¯¯     ¯¯       ¯¯¯¯¯¯         ¯¯¯¯¯¯¯¯")
+        exit()
     else:
-        return -1
-
+        i = 0
+        while i < n and nev[i] != ker:
+            i += 1
+        if i < n:
+            return i
+        else:
+            return -1
 def intake(bmi, neve, mag, suly, kor):
     normal, n, kg, nap = 24.9, [1.2, 1.375, 1.55, 1.725, 1.9], 7700, 55
     szam = 0
@@ -171,7 +186,7 @@ def csere(mag, nev, suly, kor, j):
 
 def bubble(mag, suly, nev, kor):
     os.system("cls")
-    x = input("Csökkenő vagy növekvő sorrend? (súly alapján): ")
+    x = input("Csökkenő vagy növekvő sorrend? (súly alapján): ").capitalize()
     os.system("cls")
     n = len(mag)
     for i in range(n):
@@ -211,6 +226,12 @@ def fullbmi(mag, suly, nev):
             elhizottsuly.append(int(x))
     print("Ennyi elhízott ember van az osztályba:", mennyiseg)
     legelhizottabb(elhizottsuly, elhizottnev)
+    
+def statisztika(nev, kor, bmi):
+    fw = open("statisztika.txt", "w", encoding="UTF-8")
+    for i in range(len(kor)):
+       fw.write(f"{bmi[i]},{nev[i]}, {kor[i]}\n")
+    fw.close()
 
 def hozzairas(filenev):
     fa = open(f"{filenev}", "a", encoding="UTF-8")
@@ -269,33 +290,36 @@ def main():
 
     if m == True:
         if ok == "y":
-            print("Jó ez")
+            print("Létezik ez a txt, a mappájában található, ha megszeretné tekinteni, akkor megteheti akármikor.")
         else:
             os.system("cls")
             print("Rendben, itt a program:")
 
     elif m == False:
         if ok == "y":
-            l = input("Nincs még létező file, ezáltal kérem várjon, itt van pár lehetőség várakozási muzsikához:\n1. Justice\n2. Vibe\n")
-            while l != "1" and l != "2":
+            l = input("Nincs még létező file, ezáltal kérem várjon, itt van pár lehetőség várakozási muzsikához:\n1. Justice\n2. Vibe\n3. Vibe2\n")
+            while l != "1" and l != "2" and l != "3":
                 os.system("cls")
                 l = input("Csak 1est és 2est fogadunk el, kérem írja újra: ")
                 os.system("cls")
             if l == "1":
                 os.system("start microsoft-edge:https://www.youtube.com/watch?v=YFcM7BntI0M")
-            else:
+            elif l == "2":
                 os.system("start microsoft-edge:https://www.youtube.com/watch?v=vlLgvQErn6o")
+            else:
+                os.system("start microsoft-edge:https://www.youtube.com/watch?v=cEin6Kix6xs")
         else:
             os.system("cls")
             print("Rendben, itt a program:")
 
     beolvasas(mag, suly, nev, kor)
-
+    
     mod(mag, suly, nev, kor)
     
     rendez(mag, suly, nev, kor)
 
     hizott(mag, suly, nev)
+    
    
 main()
 
