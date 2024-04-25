@@ -19,12 +19,12 @@ def beolvasas(mag, suly, nev, kor):
 
     elif b == "n":
         os.system("cls")
-        x = input("Melyik osztály adatait szeretnéd megtekinteni? A osztály vagy B osztály?: ")
+        x = input("Melyik osztály adatait szeretnéd megtekinteni? A osztály vagy B osztály?: ").capitalize()
         os.system("cls")
     
         while x != "A" and x != "B":
             os.system("cls")
-            x = input("Megint nem sikerült értelmezni a szöveget.\nTehát probáljuk meg még egyszer;\nMelyik osztály adatait szeretnéd megtekinteni? A osztály vagy B osztály?: ")
+            x = input("Megint nem sikerült értelmezni a szöveget.\nTehát probáljuk meg még egyszer;\nMelyik osztály adatait szeretnéd megtekinteni? A osztály vagy B osztály?: ").capitalize()
             os.system("cls")
         
         if x == "A":
