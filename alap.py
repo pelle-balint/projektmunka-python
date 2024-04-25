@@ -62,13 +62,12 @@ def mod(mag, suly, nev, kor):
             print()
             d = dontes(nev)
         bmi(mag[d], suly[d], nev[d], kor[d])
-
     else:
-        bmi(mag, suly, nev, kor, random == True)
-        bubble(mag, suly, nev, kor)
+        bmi(mag, suly, nev, kor, random = True)
 
 def rendez(mag, suly, nev, kor):
-    os.system("cls")
+    print()
+    print()
     buborek = input("Szeretnéd súly szerint növekvő vagy csökkenő sorrendbe rendezni az osztályt? (y/n): ")
     while buborek != "y" and buborek != "n":
         os.system("cls")
@@ -107,8 +106,8 @@ def olvas(filenev, mag, suly, nev, kor):
 def bmi(mag, suly, nev,kor, random = False):
     if random == True:
         i = randint(0, len(mag))
-        x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
         if nev[i] != "Gabó":
+            x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
             print(f"A random ember: {nev[i]}, BMI-je {x}, életkora pedig: {kor[i]}")
             ell(x, nev[i])
             intake(x, nev[i], mag[i], suly[i], kor[i])
@@ -116,7 +115,7 @@ def bmi(mag, suly, nev,kor, random = False):
             os.system("start microsoft-edge:https://www.ritafoldi.hu/a-fogyas-alapjai-hogyan-mit-mikor-es-mennyit/")
     else:
         if nev != "Gabó":
-            x = round((suly / ((mag // 100) ** 2)), 1)
+            x = round((suly / ((mag / 100) ** 2)), 1)
             print(f"Az általad válaszott ember: {nev}, BMI-je {x}, életkora pedig: {kor}")
             ell(x, nev)
             intake(x, nev, mag, suly, kor)
@@ -141,6 +140,7 @@ def dontes(nev):
     while i < n and nev[i] != ker:
         i += 1
     if(i < n):
+        print(nev[i])
         return i
     else:
         return -1
@@ -194,7 +194,7 @@ def legelhizottabb(hizas, nev):
     for i in range(1, n):
         if hizas[i] < max:
             max = i
-    print("Legelhízotabb ember az osztályban:", nev[i])
+    print("Legelhízotabb ember az osztályban:", nev[max])
             
 def fullbmi(mag, suly, nev):
     elhizottnev = []
