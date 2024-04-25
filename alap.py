@@ -204,7 +204,7 @@ def csere(mag, nev, suly, kor, j):
 
 def bubble(mag, suly, nev, kor):
     os.system("cls")
-    x = input("Csökkenő vagy növekvő sorrend? (súly alapján): ").capitalize()
+    x = input("Csökkenő vagy növekvő sorrend? (súly alapján): ").lower()
     os.system("cls")
     n = len(mag)
     for i in range(n):
