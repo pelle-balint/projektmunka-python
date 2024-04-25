@@ -2,7 +2,6 @@ from random import *
 import os
 
 def beolvasas(mag, suly, nev, kor):
-    os.system("cls")
     b = input("Akarsz-e saját adatokat rögzíteni?\nHa nem, akkor megtudod tekinteni az adatokat. (y/n): ")
     os.system("cls")
 
@@ -76,7 +75,6 @@ def rendez(mag, suly, nev, kor):
     if buborek == "y":
         bubble(mag, suly, nev, kor)
         ujfajl(suly, mag, nev, kor)
-        
     else:
         os.system("cls")
         print("Hát akkor ugorjunk a végére.")
@@ -89,7 +87,7 @@ def hizott(mag, suly, nev):
         dontes2 = input("Na ez nem sikerült.\nSzeretnéd megtekinteni a legelhízottabb személyt az osztályban (bmi alapján)? (y/n): ").capitalize()
         os.system("cls")
     if dontes2 == "y":
-        fullbmi(mag, suly, nev)
+        maxbmi(mag, suly, nev)
         print()
         print("Úgy látszik vége a kódnak, nem bántunk már meg több embert ma.\nKészítette: Norbert professor.")
 
@@ -104,11 +102,6 @@ def olvas(filenev, mag, suly, nev, kor):
         kor.append(int(y[3]))
         sor = f.readline().strip()
     f.close()
-    bmiossz = []
-    for i in range(len(mag)):
-        x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
-        bmiossz.append(x)
-    statisztika(nev, kor, bmiossz)
 
 def bmi(mag, suly, nev, kor, random = False):
     if random == True:
@@ -145,7 +138,7 @@ def dontes(nev):
     n = len(nev)
     ker = input("Kinek a BMI-jét szeretnéd tudni?: ").capitalize()
     os.system("cls")
-    if ker == "Tobias tanar ur":
+    if ker == "Tóbias tanár úr":
         print(" __        __    __     _____    ________    ______         _      _")
         print("|  |      |  |  |  |   | ___ |  |__    __|  |  ____|       | |    | |")
         print("|  |      |  |  |  |   | | | |     |  |     | |            | |    | |")
@@ -214,7 +207,7 @@ def legelhizottabb(hizas, nev):
             max = i
     print("Legelhízotabb ember az osztályban:", nev[max])
             
-def fullbmi(mag, suly, nev):
+def maxbmi(mag, suly, nev):
     elhizottnev = []
     elhizottsuly = []
     mennyiseg = 0
@@ -226,12 +219,6 @@ def fullbmi(mag, suly, nev):
             elhizottsuly.append(int(x))
     print("Ennyi elhízott ember van az osztályba:", mennyiseg)
     legelhizottabb(elhizottsuly, elhizottnev)
-    
-def statisztika(nev, kor, bmi):
-    fw = open("statisztika.txt", "w", encoding="UTF-8")
-    for i in range(len(kor)):
-       fw.write(f"{bmi[i]},{nev[i]}, {kor[i]}\n")
-    fw.close()
 
 def hozzairas(filenev):
     fa = open(f"{filenev}", "a", encoding="UTF-8")
@@ -265,52 +252,52 @@ def hozzairas(filenev):
     os.system("cls")
     fa.close()
 
+def muzsika():
+    zene = input("Ameddig olvasod a statisztika.txt fájlban lévő adatokat szeretnél egy kis zenét hallgatni? (y/n): ")
+    while zene != "y" and zene != "n":
+        os.system("cls")
+        zene = input("Na akkor még egyszer probáld meg. Szurkolok neked.\nAmeddig várakozol szeretnél egy kis zenét hallgatni? (y/n): ")
+        os.system("cls")
+    if zene == "y":
+        choice = input("Itt van pár lehetőség  muzsikához:\n1. Justice\n2. Vibe\n3. Vibe2\n")
+        while choice != "1" and choice != "2" and choice != "3":
+                os.system("cls")
+                l = input("Csak 1est és 2est fogadunk el, kérem írja újra: ")
+                os.system("cls")
+        if choice == "1":
+            os.system("start microsoft-edge:https://www.youtube.com/watch?v=YFcM7BntI0M")
+        elif choice == "2":
+            os.system("start microsoft-edge:https://www.youtube.com/watch?v=vlLgvQErn6o")
+        else:
+            os.system("start microsoft-edge:https://www.youtube.com/watch?v=cEin6Kix6xs")
+    os.system("cls")
+
+
 def main():
     mag, suly, nev, kor = [], [], [], []
     os.system("cls")
-    print("Ez a program egy osztály adatait és bmi számitásait végzi el. \n")
+    print("Ez a program két osztály adatait és bmi számitásait végzi el. \n")
     ok = input("Szeretnéd megtekinteni a bmi statisztikát(y), vagy programot akarod futtatni(n)?: ")
 
     while ok != "y" and ok != "n":
         os.system("cls")
         ok = input("Jól kezdünk. Akkor probáljuk meg még egyszer.\nSzeretnéd megtekinteni a bmi statisztikát(y), vagy programot akarod futtatni(n)?: ")
         os.system("cls")
-    m = False
 
-    try:
-        f = open("statisztika.txt", "r", encoding="UTF-8")
-        sor = f.readline().strip()
-        while sor != "":
-            k = sor.split()
-            if k[0] != "":
-                m = True
-        f.close()
-    except:
-        m == False
-
-    if m == True:
-        if ok == "y":
-            print("Létezik ez a txt, a mappájában található, ha megszeretné tekinteni, akkor megteheti akármikor.")
-        else:
-            os.system("cls")
-            print("Rendben, itt a program:")
-
-    elif m == False:
-        if ok == "y":
-            l = input("Nincs még létező file, ezáltal kérem várjon, itt van pár lehetőség várakozási muzsikához:\n1. Justice\n2. Vibe\n3. Vibe2\n")
-            while l != "1" and l != "2" and l != "3":
-                os.system("cls")
-                l = input("Csak 1est és 2est fogadunk el, kérem írja újra: ")
-                os.system("cls")
-            if l == "1":
-                os.system("start microsoft-edge:https://www.youtube.com/watch?v=YFcM7BntI0M")
-            elif l == "2":
-                os.system("start microsoft-edge:https://www.youtube.com/watch?v=vlLgvQErn6o")
-            else:
-                os.system("start microsoft-edge:https://www.youtube.com/watch?v=cEin6Kix6xs")
-        else:
-            os.system("cls")
-            print("Rendben, itt a program:")
+    if ok == "y":
+        bmiossz = []
+        for i in range(len(mag)):
+            x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
+            bmiossz.append(x)
+        fw = open("statisztika.txt", "w", encoding="UTF-8")
+        for i in range(len(kor)):
+            fw.write(f"{bmiossz[i]}, {nev[i]}, {kor[i]}\n")
+        fw.close()
+        muzsika()
+        
+    else:
+        os.system("cls")
+        print("Rendben, itt a program:\n")
 
     beolvasas(mag, suly, nev, kor)
     
