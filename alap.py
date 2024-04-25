@@ -81,10 +81,11 @@ def rendez(mag, suly, nev, kor):
         print("Hát akkor ugorjunk a végére.")
 
 def hizott(mag, suly, nev):
-    dontes2 = input("Szeretnéd megtekinteni a legelhízottabb személyt az osztályban? (y/n): ")
+    dontes2 = input("Szeretnéd megtekinteni a legelhízottabb személyt az osztályban (bmi alapján)? (y/n): ")
+    os.system("cls")
     while dontes2 != "y" and dontes2 != "n":
         os.system("cls")
-        dontes2 = input("Na ez nem sikerült.\nSzeretnéd megtekinteni a legelhízottabb személyt az osztályban? (y/n): ")
+        dontes2 = input("Na ez nem sikerült.\nSzeretnéd megtekinteni a legelhízottabb személyt az osztályban (bmi alapján)? (y/n): ")
         os.system("cls")
     if dontes2 == "y":
         fullbmi(mag, suly, nev)
@@ -108,6 +109,7 @@ def bmi(mag, suly, nev,kor, random = False):
         i = randint(0, len(mag))
         if nev[i] != "Gabó":
             x = round((suly[i] / ((mag[i] / 100) ** 2)), 1)
+            os.system("cls")
             print(f"A random ember: {nev[i]}, BMI-je {x}, életkora pedig: {kor[i]}")
             ell(x, nev[i])
             intake(x, nev[i], mag[i], suly[i], kor[i])
@@ -116,6 +118,7 @@ def bmi(mag, suly, nev,kor, random = False):
     else:
         if nev != "Gabó":
             x = round((suly / ((mag / 100) ** 2)), 1)
+            os.system("cls")
             print(f"Az általad válaszott ember: {nev}, BMI-je {x}, életkora pedig: {kor}")
             ell(x, nev)
             intake(x, nev, mag, suly, kor)
@@ -190,9 +193,9 @@ def ujfajl(mag, suly, nev, kor):
 
 def legelhizottabb(hizas, nev):
     n = len(hizas)
-    max = hizas[0]
-    for i in range(1, n):
-        if hizas[i] < max:
+    max = 0
+    for i in range(1, n-1):
+        if hizas[i] > hizas[max]:
             max = i
     print("Legelhízotabb ember az osztályban:", nev[max])
             
