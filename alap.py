@@ -226,8 +226,8 @@ def ujfajl(mag, suly, nev, kor):
 
 def legelhizottabb(hizas, nev):
     n = len(hizas)
-    max = 0
-    for i in range(1, n-1):
+    max = 0 
+    for i in range(1, n):
         if hizas[i] > hizas[max]:
             max = i
     print("Legelhízotabb ember az osztályban:", nev[max])
